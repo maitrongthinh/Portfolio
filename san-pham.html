@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio của Tôi</title>
+  <style>
+    /* Reset & cấu hình chung */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      background-color: #111;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Canvas nền */
+    #backgroundCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    /* Header & Navigation */
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      width: 100%;
+      z-index: 2;
+    }
+    header nav {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header nav h1 {
+      color: #fff;
+      font-size: 24px;
+    }
+    header nav ul {
+      list-style: none;
+      display: flex;
+    }
+    header nav ul li {
+      margin-left: 20px;
+    }
+    header nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s;
+    }
+    header nav ul li a:hover {
+      color: #1abc9c;
+    }
+    /* Container chung */
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 0;
+    }
+    /* Phần giới thiệu */
+    #intro {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 40px;
+      margin-bottom: 40px;
+    }
+    #intro h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    #intro p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    /* Phần dự án */
+    #projects h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 40px;
+      color: #fff;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .project-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .project-card p {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .project-card a {
+      text-decoration: none;
+      color: #1abc9c;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    .project-card a:hover {
+      color: #16a085;
+    }
+    /* Footer */
+    footer {
+      background: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas cho hiệu ứng nền -->
+  <canvas id="backgroundCanvas"></canvas>
+
+  <!-- Header -->
+  <header>
+    <nav>
+      <h1>Portfolio</h1>
+      <ul>
+        <li><a href="#intro">Giới thiệu</a></li>
+        <li><a href="#projects">Dự án</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Phần giới thiệu -->
+  <section id="intro" class="container">
+    <h2>Giới thiệu</h2>
+    <p>Chào mừng bạn đến với portfolio của tôi. Đây là nơi lưu trữ các trang web mà tôi đã code và giới thiệu về bản thân cũng như kỹ năng lập trình.</p>
+  </section>
+
+  <!-- Phần dự án -->
+  <section id="projects" class="container">
+    <h2>Dự án của tôi</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Dự án 1</h3>
+        <p>Mô tả ngắn gọn dự án 1.</p>
+        <a href="#" target="_blank">Xem chi tiết</a>
+      </div>
+      <div class="project-card">
+        <h3>Dự án 2</h3>
+        <p>Mô tả ngắn gọn dự án 2.</p>
+        <a href="#" target="_blank">Xem chi tiết</a>
+      </div>
+      <div class="project-card">
+        <h3>Dự án 3</h3>
+        <p>Mô tả ngắn gọn dự án 3.</p>
+        <a href="#" target="_blank">Xem chi tiết</a>
+      </div>
+      <!-- Thêm dự án khác nếu cần -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Portfolio của tôi. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    /* Hiệu ứng Canvas - Particle Effect */
+    const canvas = document.getElementById('backgroundCanvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+
+    // Cài đặt kích thước canvas
+    function initCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    initCanvas();
+    window.addEventListener('resize', () => {
+      initCanvas();
+      initParticles();
+    });
+
+    // Định nghĩa Particle
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 3 + 1;
+        this.speedX = Math.random() * 2 - 1;
+        this.speedY = Math.random() * 2 - 1;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        // Nếu va chạm với biên thì đảo hướng
+        if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = 'rgba(255,255,255,0.8)';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    // Khởi tạo mảng particles
+    function initParticles() {
+      particlesArray = [];
+      let numberOfParticles = Math.floor((canvas.width * canvas.height) / 9000);
+      for (let i = 0; i < numberOfParticles; i++){
+        particlesArray.push(new Particle());
+      }
+    }
+    initParticles();
+
+    // Vẽ và cập nhật particles
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let particle of particlesArray) {
+        particle.update();
+        particle.draw();
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* Hiệu ứng cuộn mượt (Smooth Scrolling) cho navigation */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+
